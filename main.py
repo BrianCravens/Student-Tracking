@@ -2,6 +2,7 @@ from cohort import *
 from exercise import *
 from instructor import *
 from student import *
+from reports import *
 
 ## Add Exercises ##
 kennel = Exercise("Kennel", "JavaScript")
@@ -57,3 +58,5 @@ def student_assignments():
             print('')
 
 student_assignments()
+
+reports.all_students()
