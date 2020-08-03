@@ -66,7 +66,7 @@ VALUES ("Planets", "Python");
 INSERT INTO exercises (name, language)
 VALUES ("Coins to Cash", "Python");
 INSERT INTO exercises (name, language)
-VALUES ("student exercise", "sql");
+VALUES ("Student Exercises", "SQL");
 INSERT INTO exercises (name, language)
 VALUES ("Cash to Coins", "Python");
 
@@ -121,13 +121,23 @@ VALUES (7, 4);
 INSERT INTO student_exercises (exercise_id, student_id )
 VALUES (7, 3);
 
-SELECT s.first_name, s.last_name, i.last_name as instructor, cohorts.name, ex.name as exercise
-FROM students s 
-JOIN cohorts on cohorts.id = s.cohort_id
-JOIN student_exercises
-ON s.id = student_exercises.student_id
-JOIN exercises ex
-ON student_exercises.exercise_id = ex.id
-JOIN instructors i
-ON i.cohort_id = cohorts.id
-ORDER BY s.last_name
+-- SELECT s.first_name, s.last_name, i.last_name as instructor, cohorts.name, ex.name as exercise
+-- FROM students s 
+-- JOIN cohorts on cohorts.id = s.cohort_id
+-- JOIN student_exercises
+-- ON s.id = student_exercises.student_id
+-- JOIN exercises ex
+-- ON student_exercises.exercise_id = ex.id
+-- JOIN instructors i
+-- ON i.cohort_id = cohorts.id
+-- ORDER BY s.last_name
+
+-- select
+--     e.id ExerciseId,
+--     e.name,
+--     s.id,
+--     s.first_name,
+--     s.last_name
+-- from exercises e
+-- join student_exercises se on se.exercise_id = e.id
+-- join students s on s.id = se.student_id

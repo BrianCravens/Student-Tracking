@@ -225,6 +225,7 @@ class InstructorsReports():
     def all_instructors(self):
 
         """Retrieve all students with the cohort name"""
+        
 
         with sqlite3.connect(self.db_path) as conn:
             conn.row_factory = lambda cursor, row: Instructor(row  [1], row[2], row[3], row[5])
@@ -251,3 +252,51 @@ class InstructorsReports():
 
 reports = InstructorsReports()
 reports.all_instructors()
+
+class StudentExerciseReport:
+
+    def __init__(self):
+        self.db_path = "/home/brian/workspace/python/practice/Tracking/studentexercises.db"
+
+    def assigned_exercises(self):
+
+        """Retrieve all students with the cohort name"""
+
+        exercises = dict()
+
+        with sqlite3.connect(self.db_path) as conn:
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+                select
+                    e.id ExerciseId,
+                    e.name,
+                    s.id,
+                    s.first_name,
+                    s.last_name
+                from exercises e
+                join student_exercises se on se.exercise_id = e.id
+                join students s on s.id = se.student_id
+            """)
+
+            dataset = db_cursor.fetchall()
+
+            for row in dataset:
+                exercise_id = row[0]
+                exercise_name = row[1]
+                student_id = row[2]
+                student_name = f'{row[3]} {row[4]}'
+                
+                if exercise_name not in exercises:
+                    exercises[exercise_name] = [student_name]
+                    # {"Kennel": ["Brian Cravens"]}
+                else:
+                    exercises[exercise_name].append(student_name)
+                    # {"Kennel": ["Brian Cravens", "Joe Montana"]}
+            for exercise_name, students in exercises.items():
+                print(f'\n{exercise_name}')
+                for student in students:
+                    print(f'\t* {student}')
+
+reports = StudentExerciseReport()
+reports.assigned_exercises()
